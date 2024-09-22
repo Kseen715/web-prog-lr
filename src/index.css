@@ -33,6 +33,11 @@ header {
     border-radius: 16px;
 }
 
+a {
+    /* delete underline and purple coloring */
+    text-decoration: none;
+}
+
 header nav {
     display: flex;
     flex-direction: row;
@@ -44,9 +49,13 @@ header h1 {
     padding-right: 20px;
 }
 
-header .logo {
+header .logo-container {
     height: 80%;
     padding: 10px;
+}
+
+header .logo {
+    height: 100%;
 }
 
 header .horizontal-nav ul {
@@ -70,6 +79,8 @@ main {
     padding: 0;
     display: flex;
     justify-content: center;
+    /* min-height: 70%; */
+    max-height: fit-content;
     width: 100%;
 }
 
@@ -79,10 +90,12 @@ main .left-nav {
     width: 20%;
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 100% - 20px;
     background-color: var(--color-background);
     margin: 0 10px;
     padding: 10px;
+    /* min-height: 400px; */
+    min-height: 80vh;
 }
 
 main .left-nav ul {
@@ -143,12 +156,14 @@ main .main-viewport {
 
 footer {
     background-color: var(--color-background-darker);
-    min-height: 60px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
 }
 
 .main-viewport {
@@ -161,6 +176,33 @@ footer {
     margin: 0;
     padding: 0;
     list-style-type: none;
+    /* height: 100%; */
+}
+
+main .empty-viewport { 
+    border-radius: 16px;
+    flex-grow: 1;
+    padding: 20px;
+    margin-right: 10px;
+    background-color: var(--color-background);
+    color: var(--color-text-light);
+}
+
+.empty-viewport {
+    /* height: 100%; */
+    border-radius: 16px;
+    flex-grow: 1;
+    padding: 20px;
+    margin-right: 10px;
+    background-color: var(--color-background);
+    color: var(--color-text-light);
+    display: flex;
+    font-size: x-large;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 .product-card {
@@ -209,7 +251,6 @@ footer {
     flex-direction: row;
     justify-content: space-between;
     margin: 4px 0;
-
 }
 
 .product-card-buttons button {
@@ -219,15 +260,16 @@ footer {
     width: 30%;
     height: 20%;
     background-color: var(--color-background);
+    border: 0;
     border-radius: 8px;
     color: var(--white);
 }
 
 .product-card-buttons button:hover {
     color: var(--color-accent-blue);
-    background-color: var(--color-background-lighter);
+    /* background-color: var(--color-background-lighter); */
+    /* border: 3px solid var(--color-accent-blue); */
     cursor: pointer;
-    margin: 4px;
 }
 
 input[type=number]::-webkit-outer-spin-button,
@@ -237,7 +279,8 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 input[type=number] {
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
+    /* Firefox */
     margin: 4px;
 }
 
@@ -247,13 +290,15 @@ input[type=number] {
     display: block;
     width: 100%;
     background-color: var(--color-background);
+    border: 0;
     border-radius: 8px;
     color: var(--white);
-    margin: 8px;
+    margin: 0 4px;
 }
 
-.name, .desc {
-    padding: 6px;
+.name,
+.desc {
+    padding: 8px;
     margin: 4px 0;
     border-radius: 8px;
     background-color: var(--color-background);
@@ -278,24 +323,91 @@ input[type=number] {
 }
 
 .date {
-    padding: 5px;
+    padding: 8px;
     margin: 4px 0;
     border-radius: 8px;
     background-color: var(--color-background);
-    color: var(--white);
+    color: var(--color-text-light);
     width: 100%;
     height: 15%;
     box-sizing: border-box;
     border: 0;
 }
 
-.product-card-buttons input[type=number] {
-    padding: 5px;
-    text-decoration: none;
-    display: block;
-    width: 100%;
+.date:hover {
+    cursor: pointer;
+}
+
+.login-card {
+    max-width: 300px;
+    margin: 50px auto;
+    padding: 40px;
+    /* border: 1px solid #ccc; */
+    background-color: var(--color-background-lighter);
+    border-radius: 10px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.login-card h2 {
+    text-align: center;
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-card label {
+    margin-bottom: 5px;
+}
+
+.login-card input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-card button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-card button:hover {
+    background-color: #45a049;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
     background-color: var(--color-background);
-    border-radius: 8px;
-    color: var(--white);
-    margin: 4px;
+    border: 3px solid var(--color-background-darker);
+    border-radius: 8px 0 0 8px; /* Only top-left and bottom-left corners */
+}
+
+.search-bar button {
+    padding: 10px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: var(--color-background);
+    color: var(--color-text-light);
+    border: 3px solid var(--color-background-darker);
+    border-radius: 0 8px 8px 0; /* Only top-right and bottom-right corners */
+    margin-left: -3px;
+}
+
+.search-bar button:hover {
+    background-color: var(--color-background-lighter);
+    color: var(--color-accent-blue);
+    border: 3px solid var(--color-accent-blue);
 }

@@ -12,13 +12,12 @@ import { RouterLink, RouterView } from 'vue-router'
             <input type="text" placeholder="Поиск...">
             <button type="submit">Поиск</button>
         </div>
-        <!-- <div class="horizontal-nav-container"> -->
         <nav class="horizontal-nav">
             <RouterLink to="/">Главная</RouterLink>
             <RouterLink to="/" class="search-minimized">Поиск</RouterLink>
+            <RouterLink to="/" class="warehouses-minimized">Склады</RouterLink>
             <RouterLink to="/login">Логин</RouterLink>
         </nav>
-        <!-- </div> -->
     </header>
 </template>
 
@@ -91,7 +90,8 @@ header .horizontal-nav a:hover {
         display: none;
     }
 
-    .search-minimized {
+    .search-minimized,
+    .warehouses-minimized  {
         display: none;
     }
 }
@@ -104,7 +104,8 @@ header .horizontal-nav a:hover {
         display: none;
     }
 
-    .search-minimized {
+    .search-minimized,
+    .warehouses-minimized {
         display: block;
     }
 }

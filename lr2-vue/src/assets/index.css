@@ -68,72 +68,13 @@ main {
 
 }
 
-main .left-nav {
-    border-radius: 16px;
-    max-width: 200px;
-    width: 20%;
-    position: sticky;
-    top: 0;
-    height: 100% - 20px;
-    background-color: var(--color-background-op);
-    margin: 0 10px;
-    padding: 10px;
-    /* min-height: 400px; */
-    /* min-height: 80vh; */
-}
 
-main .left-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-main .left-nav li {
-    margin: 5px;
-}
-
-main .left-nav button {
-    padding: 5px;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    background-color: var(--color-background-op);
-    border: 3px solid var(--color-background-darker);
-    border-radius: 16px;
-    color: var(--color-text-light);
-}
-
-main .left-nav button:hover {
-    color: var(--color-accent-blue);
-    border-color: var(--color-accent-blue);
-    background-color: var(--color-background-lighter);
-    cursor: pointer;
-}
-
-main .left-nav select {
-    padding: 5px;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    background-color: var(--color-background-op);
-    border: 3px solid var(--color-background-darker);
-    border-radius: 8px;
-    color: var(--color-text-light);
-}
-
-main .left-nav select:hover,
-main .left-nav select:focus {
-    color: var(--color-accent-blue);
-    border-color: var(--color-accent-blue);
-    background-color: var(--color-background-lighter);
-    cursor: pointer;
-}
 
 main .main-viewport {
     border-radius: 16px;
     flex-grow: 1;
     padding: 20px;
-    margin-right: 10px;
+    margin: 0 10px;
     background-color: var(--color-background-op);
     color: var(--color-text-light);
     display: grid;
@@ -151,7 +92,7 @@ main .empty-viewport {
     border-radius: 16px;
     flex-grow: 1;
     padding: 20px;
-    margin-right: 10px;
+    margin: 0 10px;
     background-color: var(--color-background-op);
     color: var(--color-text-light);
     min-height: 60vh;

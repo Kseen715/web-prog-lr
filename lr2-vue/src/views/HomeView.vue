@@ -11,4 +11,18 @@ import LeftNavComp from '@/components/LeftNavComp.vue'
     </main>
 </template>
 
-<style></style>
+<style>
+.empty-viewport {
+    border-radius: 16px;
+    flex-grow: 1;
+    padding: 20px;
+    margin: 0 10px;
+    background-color: var(--color-background-op);
+    color: var(--color-text-light);
+    min-height: 60vh;
+    display: flex;
+    font-size: x-large;
+    align-items: center;
+    justify-content: center;
+}
+</style>

@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -10,9 +11,10 @@
                 <option value="warehouse3">Склад 3</option>
             </select>
             <ul>
-                <li><a href="shelf_0F6A.html"><button>Полка #0F6A</button></a></li>
-                <li><button>Полка #0F6B</button></li>
-                <li><button>Полка #0F6C</button></li>
+                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
+                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
+                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
+                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
             </ul>
         </nav>
     </div>

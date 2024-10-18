@@ -18,7 +18,7 @@ import LeftNavComp from '@/components/LeftNavComp.vue'
     padding: 20px;
     margin: 0 10px;
     background-color: var(--color-background-op);
-    color: var(--color-text-light);
+    color: var(--color-text);
     min-height: 60vh;
     display: flex;
     font-size: x-large;

@@ -30,7 +30,7 @@ const props = defineProps(['image', 'name', 'desc', 'date', 'quantity']);
     box-sizing: border-box;
     /* width: 200px; */
     height: 300px;
-    color: var(--color-text-light);
+    color: var(--color-text);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -143,7 +143,7 @@ input[type=number] {
     margin: 4px 0;
     border-radius: 8px;
     background-color: var(--color-background-op);
-    color: var(--color-text-light);
+    color: var(--color-text);
     width: 100%;
     height: 15%;
     box-sizing: border-box;

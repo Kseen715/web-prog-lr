@@ -25,10 +25,17 @@ footer {
     /* glue div to bottom of page */
     /* position: relative; */
     /* margin-top: auto;
-    color: var(--color-text-light);
+    color: var(--color-text);
     border-radius: 16px; */
 
+    /* top shadow  */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
+@media (prefers-color-scheme: dark) {
+    footer {
+        box-shadow: 0 2px 7px rgba(222, 222, 222, 0.1);
+    }
 }
 
 .footer-container {

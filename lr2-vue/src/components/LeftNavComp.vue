@@ -53,7 +53,7 @@ import { RouterLink, RouterView } from 'vue-router'
     background-color: var(--color-background-op);
     border: 3px solid var(--color-background-darker);
     border-radius: 16px;
-    color: var(--color-text-light);
+    color: var(--color-text);
 }
 
 .left-nav button:hover {
@@ -71,7 +71,7 @@ import { RouterLink, RouterView } from 'vue-router'
     background-color: var(--color-background-op);
     border: 3px solid var(--color-background-darker);
     border-radius: 8px;
-    color: var(--color-text-light);
+    color: var(--color-text);
 }
 
 .left-nav select:hover,

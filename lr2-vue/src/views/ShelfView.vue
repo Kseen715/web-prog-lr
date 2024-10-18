@@ -12,11 +12,18 @@ const products = ref([
     quantity: 10
   },
   {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
+    image: 'https://i.pinimg.com/originals/80/f7/36/80f736c9e475b8baaf0a254add77a3f7.jpg',
+    name: 'Помидоры маринованые',
+    desc: 'Состав: томаты, уксус, сахар, соль, перец черный, лавровый лист',
+    date: '2023-08-20',
     quantity: 5
+  },
+  {
+    image: 'https://i.pinimg.com/originals/80/f7/36/80f736c9e475b8baaf0a254add77a3f7.jpg',
+    name: 'Помидоры маринованые',
+    desc: 'Состав: томаты, уксус, сахар, соль, перец черный, лавровый лист',
+    date: '2077-11-12',
+    quantity: 43
   },
   {
     image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
@@ -108,7 +115,7 @@ const products = ref([
     padding: 20px;
     margin: 0 10px;
     background-color: var(--color-background-op);
-    color: var(--color-text-light);
+    color: var(--color-text);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: min-content;

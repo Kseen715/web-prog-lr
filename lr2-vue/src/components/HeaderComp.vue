@@ -32,7 +32,7 @@ header {
 
     padding: 0 20px;
     height: 15vh;
-    color: var(--color-text-light);
+    color: var(--color-text);
     margin: 10px;
     border-radius: 16px;
     justify-content: space-between;
@@ -76,7 +76,7 @@ header .horizontal-nav {
 
 header .horizontal-nav a {
     text-decoration: none;
-    color: var(--color-text-light);
+    color: var(--color-text);
 }
 
 header .horizontal-nav a:hover {
@@ -95,7 +95,7 @@ header .horizontal-nav a:hover {
     background-color: var(--color-background-op);
     border: 3px solid var(--color-background-darker);
     border-radius: 8px 0 0 8px;
-    color: var(--color-text-light)
+    color: var(--color-text)
 }
 
 .search-bar input[type="text"]:focus {
@@ -108,7 +108,7 @@ header .horizontal-nav a:hover {
     font-size: 14px;
     cursor: pointer;
     background-color: var(--color-background-op);
-    color: var(--color-text-light);
+    color: var(--color-text);
     border: 3px solid var(--color-background-darker);
     border-radius: 0 8px 8px 0;
     margin-left: -3px;
@@ -180,7 +180,8 @@ header .horizontal-nav a:hover {
         justify-self: space-between;
     }
 
-    .search-minimized {
+    .search-minimized,
+    .warehouses-minimized {
         display: none;
     }
 }

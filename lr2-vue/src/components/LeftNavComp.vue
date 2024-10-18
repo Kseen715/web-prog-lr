@@ -74,6 +74,10 @@ import { RouterLink, RouterView } from 'vue-router'
     color: var(--color-text);
 }
 
+.left-nav select:focus {
+    outline:none!important;
+}
+
 .left-nav select:hover,
 .left-nav select:focus {
     color: var(--color-accent-blue);

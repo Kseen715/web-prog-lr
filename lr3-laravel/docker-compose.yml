@@ -26,15 +26,24 @@ services:
     restart: always
 
   web:
-    build: ./web
     image: wp-lr3-web:latest
     container_name: web
+    build: ./web
     networks:
       - gateway
     ports:
       - "${NODEJS_PORT}:3000"
     restart: always
 
+  warehouse:
+    image: wp-lr3-warehouse:latest
+    container_name: warehouse
+    build: ./warehouse
+    volumes:
+      - ./docker-data/warehouse/:/var/www
+      - ./docker-data/warehouse/php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "${LARAVEL_PORT}:9000"
 
 networks:
   gateway: {}

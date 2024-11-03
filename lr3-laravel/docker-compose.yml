@@ -1,0 +1,29 @@
+# mysql:8
+services:
+  # nginx:
+  #   image: ghcr.io/mikeiken/tam-prog-nginx:latest
+  #   container_name: nginx
+  #   networks:
+  #     - gateway
+  #   ports:
+  #     - '${NGINX_HTTP_PORT}:80'
+  #     - '${NGINX_HTTPS_PORT}:443'
+  #   restart: always
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    networks:
+      - gateway
+    ports:
+      - '${DB_PORT}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - ./docker-data/mysql:/var/lib/mysql
+    restart: always
+
+networks:
+  gateway: {}

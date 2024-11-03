@@ -25,5 +25,16 @@ services:
       - ./docker-data/mysql:/var/lib/mysql
     restart: always
 
+  web:
+    build: ./web
+    image: wp-lr3-web:latest
+    container_name: web
+    networks:
+      - gateway
+    ports:
+      - "${NODEJS_PORT}:3000"
+    restart: always
+
+
 networks:
   gateway: {}

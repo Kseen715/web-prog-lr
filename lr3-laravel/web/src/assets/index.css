@@ -1,0 +1,139 @@
+:root {
+    --ksi-c-sky-blue: #81b9c9;
+    --ksi-c-light-sky-blue: #90bbc7;
+    --ksi-c-dark-slate-grey: #1f4650;
+    --ksi-c-vivid-cerulean: #339eb9;
+
+    --ksi-c-white: #ffffff;
+    --ksi-c-white-op: #ffffffbb;
+    --ksi-c-white-soft: #f8f8f8;
+    --ksi-c-white-mute: #ededed;
+    --ksi-c-white-rich: #f1f0daFF;
+
+    --ksi-c-lightgrey: #ddd;
+
+    --ksi-c-grey: #808080;
+    --ksi-c-grey-soft: #a0a0a0;
+    --ksi-c-grey-mute: #b0b0b0;
+
+    --ksi-c-dark-grey: #383838;
+
+    --ksi-c-black: #181818;
+    --ksi-c-black-rich: #272523FF;
+    --ksi-c-black-rich-op: #272523dd;
+    --ksi-c-black-mute: #282828;
+
+    --vt-c-green: hsla(160, 100%, 37%, 1);
+    --vt-c-green-darker: hsla(160, 100%, 37%, 0.2);
+
+    --vt-c-indigo: #2c3e50;
+}
+
+:root {
+    --color-background-op: var(--ksi-c-white-op);
+    --color-background-darker: var(--ksi-c-white-mute);
+    --color-background-lighter: var(--ksi-c-lightgrey);
+    --color-text: var(--ksi-c-black-rich);
+    --color-text-inversed: var(--ksi-c-white-rich);
+    --color-accent-blue: var(--ksi-c-vivid-cerulean);
+    --color-background-accented: var(--ksi-c-light-sky-blue);
+}
+
+body {
+    background-color: var(--color-background-darker);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%231f4650' fill-opacity='0.09' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76zM.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0zm1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z'%3E%3C/path%3E%3C/svg%3E");
+    color: var(--color-text);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-background-op: var(--ksi-c-black-rich-op);
+        --color-background-darker: var(--ksi-c-black);
+        --color-background-lighter: var(--ksi-c-dark-grey);
+        --color-text: var(--ksi-c-white-rich);
+        --color-text-dark: var(--ksi-c-black-rich);
+        --color-accent-blue: var(--ksi-c-sky-blue);
+        --color-background-accented: var(--ksi-c-dark-slate-grey);
+    }
+
+    body {
+        background-color: var(--color-background-darker);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 40' width='80' height='40'%3E%3Cpath fill='%2361dafb' fill-opacity='0.09' d='M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0zM65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76zM.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0zm1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z'%3E%3C/path%3E%3C/svg%3E");
+        color: var(--color-text);
+    }
+}
+
+html,
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+
+    transition:
+        color 0.5s,
+        background-color 0.5s;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    height: 100%;
+}
+
+/* scrollbar */
+/* W3C standard */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-background-accented) transparent;
+    scrollbar-gutter: stable;
+}
+
+/* for old Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-background-accented);
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 60px);
+    max-width: 1536px;
+    margin: 0 auto;
+    z-index: 1;
+    width: 100%;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+main {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    max-height: fit-content;
+    margin-bottom: 10px;
+}

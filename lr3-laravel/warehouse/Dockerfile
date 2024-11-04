@@ -13,9 +13,6 @@ RUN apk add --no-cache \
     vim curl git \
     npm
 
-
-# git npm libzip-dev zip unzip
-
 RUN docker-php-ext-install pdo_mysql
 
 COPY . .

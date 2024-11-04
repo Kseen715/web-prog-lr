@@ -1,14 +1,15 @@
-# mysql:8
 services:
-  # nginx:
-  #   image: ghcr.io/mikeiken/tam-prog-nginx:latest
-  #   container_name: nginx
-  #   networks:
-  #     - gateway
-  #   ports:
-  #     - '${NGINX_HTTP_PORT}:80'
-  #     - '${NGINX_HTTPS_PORT}:443'
-  #   restart: always
+  nginx:
+    image: wp-lr3-nginx:latest
+    container_name: nginx
+    build: ./nginx
+    networks:
+      - gateway
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+
   mysql:
     image: mysql:8
     container_name: mysql
@@ -39,9 +40,13 @@ services:
     image: wp-lr3-warehouse:latest
     container_name: warehouse
     build: ./warehouse
-    volumes:
-      - ./docker-data/warehouse/:/var/www
-      - ./docker-data/warehouse/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - gateway
+    depends_on:
+      - mysql
+    # volumes:
+      # - ./docker-data/public/:/var/www/public
+      # - ./docker-data/warehouse/php/:/usr/local/etc/php/
     ports:
       - "${LARAVEL_PORT}:9000"
 

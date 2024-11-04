@@ -17,13 +17,15 @@ services:
       - gateway
     ports:
       - '${DB_PORT}:3306'
+    # env_file:
+      # - ./warehouse/.env
     environment:
       MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
       MYSQL_DATABASE: '${DB_DATABASE}'
       MYSQL_USER: '${DB_USERNAME}'
       MYSQL_PASSWORD: '${DB_PASSWORD}'
     volumes:
-      - ./docker-data/mysql:/var/lib/mysql
+      - dbdata:/var/lib/mysql
     restart: always
 
   web:
@@ -45,10 +47,19 @@ services:
     depends_on:
       - mysql
     # volumes:
-      # - ./docker-data/public/:/var/www/public
+      # - public:/var/www/public
       # - ./docker-data/warehouse/php/:/usr/local/etc/php/
     ports:
       - "${LARAVEL_PORT}:9000"
+    env_file:
+      - ./warehouse/.env
+    restart: always
+
 
 networks:
-  gateway: {}
+  gateway:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

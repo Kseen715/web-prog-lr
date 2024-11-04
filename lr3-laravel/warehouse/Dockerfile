@@ -6,11 +6,23 @@ COPY --from=composer:2.7.6 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www
 
 RUN apk update 
-RUN apk add --no-cache git
+RUN apk add --no-cache \
+    libpng-dev \
+    libzip-dev zip unzip \
+    jpegoptim optipng pngquant gifsicle \
+    vim curl git \
+    npm
+
+
+# git npm libzip-dev zip unzip
+
+RUN docker-php-ext-install pdo_mysql
 
 COPY . .
 
-RUN composer install --optimize-autoloader
+RUN npm install && npm run build
+
+RUN composer install --optimize-autoloader --no-dev
 
 RUN chmod +x artisan
 
@@ -18,11 +30,9 @@ EXPOSE 9000
 
 RUN touch /usr/local/etc/php/php.ini 
 
+RUN php artisan storage:link
+
 RUN chown -R www-data:www-data /var/www/
 USER www-data
 
-# CMD ["ls", "-la", "/var/www/html"]
-
-# CMD ["php","artisan","migrate"]
-
-CMD php artisan serve --host=0.0.0.0 --port=9000
+CMD php artisan migrate -q && php artisan serve --host=0.0.0.0 --port=9000

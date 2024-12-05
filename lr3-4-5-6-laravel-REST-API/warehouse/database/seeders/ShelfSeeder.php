@@ -12,9 +12,10 @@ class ShelfSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             Shelf::create([
                 'name' => ucfirst($faker->word . ' ' . $faker->word),
+                'warehouse_id' => $faker->numberBetween(1, 10),
             ]);
         }
     }

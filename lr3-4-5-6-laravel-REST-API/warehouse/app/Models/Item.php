@@ -14,6 +14,7 @@ class Item extends Model
         'description',
         'date',
         'count',
+        'shelf_id',
     ];
 
     protected $casts = [

@@ -10,5 +10,11 @@ class Shelf extends Model
 
     protected $fillable = [
         'name',
+        'warehouse_id',        
     ];
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
 }

@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ShelfController;
+use App\Http\Controllers\WarehouseController;
 
 
 
@@ -19,18 +21,16 @@ Route::prefix('v1')->group(function () {
         Route::get('/top', [ItemController::class, 'top']);
         Route::get('/{id}', [ItemController::class, 'info']);
     });
+
+    Route::prefix('shelf')->group(function () {
+        Route::get('', [ShelfController::class,'index']);
+        Route::get('/top', [ShelfController::class,'top']);
+        Route::get('/{id}', [ShelfController::class,'info']);
+    });
+
+    Route::prefix('warehouse')->group(function () {
+        Route::get('', [WarehouseController::class,'index']);
+        Route::get('/top', [WarehouseController::class,'top']);
+        Route::get('/{id}', [WarehouseController::class,'info']);
+    });
 });
-
-// Route::prefix('catalog')->group(function () {
-//     Route::get('top', [\App\Http\Controllers\CatalogController::class, 'top']);
-//     Route::get('{id}', [\App\Http\Controllers\CatalogController::class, 'info']);
-//     Route::get('', [\App\Http\Controllers\CatalogController::class, 'index']);
-//     Route::post('', [\App\Http\Controllers\CatalogController::class, 'create']);
-// });
-
-// Route::prefix('categories')->group(function () {
-//     Route::get('', [\App\Http\Controllers\CategoryController::class, 'index']);
-//     Route::get('{id}', [\App\Http\Controllers\CategoryController::class, 'info']);
-// });
-
-

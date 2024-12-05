@@ -12,13 +12,14 @@ class ItemSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             Item::create([
                 'name' => ucfirst($faker->word . ' ' . $faker->word),
+                'shelf_id' => $faker->numberBetween(1, 50),
                 'image_url' => 'https://picsum.photos/200/300?random=' . $i,
                 'description' => ucfirst($faker->paragraph),
                 'date' => $faker->dateTimeBetween('-1 year', 'now'),
-                'count' => $faker->numberBetween(1, 100)
+                'count' => $faker->numberBetween(1, 100),
             ]);
         }
     }

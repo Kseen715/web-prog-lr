@@ -25,4 +25,8 @@ import LeftNavComp from '@/components/LeftNavComp.vue'
     align-items: center;
     justify-content: center;
 }
+
+.empty-viewport h2 {
+    text-align: center;
+}
 </style>

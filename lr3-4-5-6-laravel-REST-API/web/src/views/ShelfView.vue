@@ -10,6 +10,7 @@ const products = ref([]);
 const isLoading = ref(true);
 
 const fetchProducts = async (shelfId) => {
+  isLoading.value = true;
   axios.get('shelf/' + shelfId + '/items/')
     .then((response) => {
       products.value = response.data.data;
@@ -43,11 +44,17 @@ watch(
 <template>
   <main>
     <LeftNavComp />
-    <div class="shelf-viewport">
-      <ProductCardComp v-if="!isLoading" v-for="(product, index) in products" :key="index" :image="product.image_url"
+    <div v-if="isLoading" class="empty-viewport">
+      <img src="/loading.svg" alt="loading" />
+    </div>
+    <div v-else-if="products.length < 1" class="empty-viewport">
+      <h2>нет предметов на этой полке</h2>
+    </div>
+    <div v-else class="shelf-viewport">
+      <ProductCardComp v-if="isLoading" :key="0" :image="'/loading.svg'" :name="'загрузка...'" :desc="'загрузка...'"
+        :date="null" :quantity="null" />
+      <ProductCardComp v-else v-for="(product, index) in products" :key="index" :image="product.image_url"
         :name="product.name" :desc="product.description" :date="product.date" :quantity="product.count" />
-      <ProductCardComp v-else :key="0" :image="'/loading.svg'" :name="'загрузка...'" :desc="'загрузка...'" :date="null"
-        :quantity="null" />
     </div>
   </main>
 </template>
@@ -70,4 +77,23 @@ watch(
   min-height: 60vh;
   max-height: fit-content;
 }
+
+.empty-viewport {
+    border-radius: 16px;
+    flex-grow: 1;
+    padding: 20px;
+    margin: 0 10px;
+    background-color: var(--color-background-op);
+    color: var(--color-text);
+    min-height: 60vh;
+    display: flex;
+    font-size: x-large;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-viewport h2 {
+    text-align: center;
+}
+
 </style>

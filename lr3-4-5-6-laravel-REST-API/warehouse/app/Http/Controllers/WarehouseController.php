@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
+use App\Models\Warehouse;
 
-class ItemController extends Controller
+class WarehouseController extends Controller
 {
     public function index()
     {
-        return Item::query()->get();
+        return Warehouse::query()->get();
     }
 
     public function info($id)
     {
-        return Item::query()
+        return Warehouse::query()
             ->where('id', $id)
             ->first();
     }
 
     public function top()
     {
-        return Item::query()
+        return Warehouse::query()
             ->limit(5)
             ->orderBy('created_at', 'desc')
             ->get();

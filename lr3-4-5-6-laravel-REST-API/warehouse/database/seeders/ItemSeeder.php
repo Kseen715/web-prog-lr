@@ -14,10 +14,10 @@ class ItemSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             Item::create([
-                'name' => $faker->word . ' ' . $faker->word,
+                'name' => ucfirst($faker->word . ' ' . $faker->word),
                 'image_url' => 'https://picsum.photos/200/300?random=' . $i,
-                'description' => $faker->paragraph,
-                'date' => $faker->dateTimeBetween('-1 month', 'now'),
+                'description' => ucfirst($faker->paragraph),
+                'date' => $faker->dateTimeBetween('-1 year', 'now'),
                 'count' => $faker->numberBetween(1, 100)
             ]);
         }

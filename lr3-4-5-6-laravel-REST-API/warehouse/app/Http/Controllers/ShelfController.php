@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
+use App\Models\Shelf;
 
-class ItemController extends Controller
+class ShelfController extends Controller
 {
     public function index()
     {
-        return Item::query()->get();
+        return Shelf::query()->get();
     }
 
     public function info($id)
     {
-        return Item::query()
+        return Shelf::query()
             ->where('id', $id)
             ->first();
     }
 
     public function top()
     {
-        return Item::query()
+        return Shelf::query()
             ->limit(5)
             ->orderBy('created_at', 'desc')
             ->get();

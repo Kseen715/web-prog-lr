@@ -27,9 +27,9 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('shelf')->group(function () {
-        Route::get('', [ShelfController::class,'index']);
-        Route::get('/top', [ShelfController::class,'top']);
-        Route::get('/{id}', [ShelfController::class,'info']);
+        Route::get('', [ShelfController::class, 'index']);
+        Route::get('/top', [ShelfController::class, 'top']);
+        Route::get('/{id}', [ShelfController::class, 'info']);
         Route::post('', [ItemController::class, 'store']);
         Route::put('/{id}', [ItemController::class, 'update']);
         Route::patch('/{id}', [ItemController::class, 'patch']);
@@ -37,9 +37,9 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::prefix('warehouse')->group(function () {
-        Route::get('', [WarehouseController::class,'index']);
-        Route::get('/top', [WarehouseController::class,'top']);
-        Route::get('/{id}', [WarehouseController::class,'info']);
+        Route::get('', [WarehouseController::class, 'index']);
+        Route::get('/top', [WarehouseController::class, 'top']);
+        Route::get('/{id}', [WarehouseController::class, 'info']);
         Route::post('', [ItemController::class, 'store']);
         Route::put('/{id}', [ItemController::class, 'update']);
         Route::patch('/{id}', [ItemController::class, 'patch']);

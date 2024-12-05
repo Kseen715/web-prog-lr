@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="footer-container">
         <footer>
             <div>
-                <p>BSTU 2024</p>
+                <p>Суверенная Система Организации Консервов @ BSTU 2024</p>
             </div>
         </footer>
     </div>

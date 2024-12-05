@@ -7,7 +7,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink class="logo-container" to="/">
             <img class="logo" src="https://github.com/Kseen715/imgs/raw/main/sakura_kharune.png" alt="logo">
         </RouterLink>
-        <h1 class="inventory-header">Инвентарь</h1>
+        <h1 class="inventory-header">ССОК "Домовёнок"</h1>
         <div class="search-bar">
             <input type="text" placeholder="Поиск...">
             <button type="submit">Поиск</button>

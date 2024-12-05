@@ -51,7 +51,6 @@ services:
       # - ./docker-data/warehouse/php/:/usr/local/etc/php/
     ports:
       - "${LARAVEL_PORT}:9000"
-      - "81:80"
     env_file:
       - ./warehouse/.env
     restart: always

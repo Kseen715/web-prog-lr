@@ -17,7 +17,7 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/shelf',
+      path: '/shelf/:id',
       name: 'shelf',
       component: ShelfView
     },

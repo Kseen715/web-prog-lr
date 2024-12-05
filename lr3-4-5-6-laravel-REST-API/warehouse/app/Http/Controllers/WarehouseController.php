@@ -25,4 +25,32 @@ class WarehouseController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
     }
+
+    public function get_items($id)
+    {
+        try {
+            $wh = Warehouse::find($id);
+
+            if (!$wh) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Warehouse not found',
+                    'data' => null
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $wh->shelves,
+                'message' => 'Shelves retrieved successfully'
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve shelves',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

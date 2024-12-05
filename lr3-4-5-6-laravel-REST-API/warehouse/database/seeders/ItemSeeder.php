@@ -16,7 +16,7 @@ class ItemSeeder extends Seeder
             Item::create([
                 'name' => ucfirst($faker->word . ' ' . $faker->word),
                 'shelf_id' => $faker->numberBetween(1, 50),
-                'image_url' => 'https://picsum.photos/200/300?random=' . $i,
+                'image_url' => 'https://picsum.photos/800/600?random=' . $i,
                 'description' => ucfirst($faker->paragraph),
                 'date' => $faker->dateTimeBetween('-1 year', 'now'),
                 'count' => $faker->numberBetween(1, 100),
@@ -24,3 +24,5 @@ class ItemSeeder extends Seeder
         }
     }
 }
+
+https://random.imagecdn.app/v1/image?width=800&height=600&category=food&format=png&provider=LoremFlickr

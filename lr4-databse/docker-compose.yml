@@ -1,0 +1,66 @@
+services:
+  nginx:
+    image: wp-lr3-nginx:latest
+    container_name: nginx
+    build: ./nginx
+    networks:
+      - gateway
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    networks:
+      - gateway
+    ports:
+      - '${DB_PORT}:3306'
+    # env_file:
+      # - ./warehouse/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: always
+
+  web:
+    image: wp-lr3-web:latest
+    container_name: web
+    build: ./web
+    networks:
+      - gateway
+    ports:
+      - "${NODEJS_PORT}:3000"
+    restart: always
+
+  warehouse:
+    image: wp-lr3-warehouse:latest
+    container_name: warehouse
+    build: ./warehouse
+    networks:
+      - gateway
+    depends_on:
+      - mysql
+    # volumes:
+      # - public:/var/www/public
+      # - ./docker-data/warehouse/php/:/usr/local/etc/php/
+    ports:
+      - "${LARAVEL_PORT}:9000"
+      - "81:80"
+    env_file:
+      - ./warehouse/.env
+    restart: always
+
+
+networks:
+  gateway:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

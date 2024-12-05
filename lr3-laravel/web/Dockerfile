@@ -1,30 +1,25 @@
-# Use the official Node.js 20 image as the base image
-FROM node:20-alpine
+# Stage 1: Build the Vue.js application
+FROM node:20-alpine as builder
 
-# Set the working directory inside the container
-WORKDIR /var/www
-
-# Copy the package.json and files to the working directory
-COPY package.json ./
-
-# Install the dependencies using 
-# RUN npm install -g @vue/cli
+WORKDIR /app
+COPY package*.json ./
 RUN npm install
-
-# Install curl for healthcheck
-RUN apk add --no-cache curl
-
-# Copy the rest of the application code to the working directory
 COPY . .
-
-# Expose the port the application will run on
-EXPOSE 3000
-
 RUN npm run build
 
-# Define the command to run the application
-CMD ["npm", "run", "preview", "--", "--port", "3000", "--host"]
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
 
-# Add a healthcheck to ensure the container is running correctly
+# Copy built files from builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 3000
+
+# Add healthcheck for Nginx
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/ || exit 1
+  CMD curl -f http://localhost:80/ || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

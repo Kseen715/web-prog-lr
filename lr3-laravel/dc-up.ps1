@@ -1,1 +1,1 @@
-docker-compose --env-file .\warehouse\.env up -d
+docker-compose --env-file .\warehouse\.env up -d $args

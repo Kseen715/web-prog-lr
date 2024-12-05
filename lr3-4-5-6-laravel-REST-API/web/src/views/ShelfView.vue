@@ -2,121 +2,42 @@
 import LeftNavComp from '@/components/LeftNavComp.vue'
 import ProductCardComp from '@/components/ProductCardComp.vue'
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-const productss = ref([
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 10
-  },
-  {
-    image: 'https://i.pinimg.com/originals/80/f7/36/80f736c9e475b8baaf0a254add77a3f7.jpg',
-    name: 'Помидоры маринованые',
-    desc: 'Состав: томаты, уксус, сахар, соль, перец черный, лавровый лист',
-    date: '2023-08-20',
-    quantity: 5
-  },
-  {
-    image: 'https://i.pinimg.com/originals/80/f7/36/80f736c9e475b8baaf0a254add77a3f7.jpg',
-    name: 'Помидоры маринованые',
-    desc: 'Состав: томаты, уксус, сахар, соль, перец черный, лавровый лист',
-    date: '2077-11-12',
-    quantity: 43
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 567
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 10
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 5
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 567
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 10
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 5
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 567
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 10
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 5
-  },
-  {
-    image: 'https://www.domitalia.ru/wp-content/uploads/D752001.jpg',
-    name: 'Малиновое варенье',
-    desc: 'Состав: малина, сахар',
-    date: '2023-12-31',
-    quantity: 567
-  },
-]);
-
-const id = useRoute().params.id;
+const route = useRoute();
 const products = ref([]);
 const isLoading = ref(true);
 
-axios.get('shelf/' + id + '/items/')
-  .then((response) => {
-    products.value = response.data.data;
-  })
-  .catch((error) => {
-    console.error('API Error:', error);
-    products.value = [];
-  })
-  .finally(() => {
-    isLoading.value = false;
-    products.value.forEach((product) => {
-      product.date = product.date.split('T')[0];
+const fetchProducts = async (shelfId) => {
+  axios.get('shelf/' + shelfId + '/items/')
+    .then((response) => {
+      products.value = response.data.data;
+    })
+    .catch((error) => {
+      // console.error('API Error:', error);
+      products.value = [];
+    })
+    .finally(() => {
+      isLoading.value = false;
+      products.value.forEach((product) => {
+        product.date = product.date.split('T')[0];
+      });
     });
-  });
+}
+
+// Initial fetch
+fetchProducts(route.params.id);
+
+// Watch for route changes
+watch(
+  () => route.params.id,
+  (newId) => {
+    if (newId) {
+      fetchProducts(newId);
+    }
+  }
+);
 </script>
 
 <template>

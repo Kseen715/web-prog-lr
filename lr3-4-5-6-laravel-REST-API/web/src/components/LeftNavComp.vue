@@ -1,20 +1,83 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import axios from 'axios';
+import { ref, watch } from 'vue';
+
+const selectedWarehouse = ref('0');
+const warehouses = ref([]);
+const isWarehousesLoading = ref(true);
+
+axios.get('warehouse')
+    .then((response) => {
+        warehouses.value = response.data;
+    })
+    .catch((error) => {
+        console.error('API Error:', error);
+        warehouses.value = [];
+    })
+    .finally(() => {
+        isWarehousesLoading.value = false;
+    });
+
+const shelves = ref([]);
+const isShelvesLoading = ref(true);
+
+const fetchShelvesByWarehouse = async (warehouseId) => {
+    try {
+        isShelvesLoading.value = true;
+        const response = await axios.get(`warehouse/${warehouseId}/shelves/`);
+        return response.data.data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
+    } finally {
+        isShelvesLoading.value = false;
+    }
+};
+
+watch(selectedWarehouse, async (newWarehouseId) => {
+    if (newWarehouseId && newWarehouseId !== '0') {
+        try {
+            fetchShelvesByWarehouse(newWarehouseId)
+                .then((sh) => {
+                    console.log('Fetched shelves:', sh);
+                    shelves.value = sh;
+                    console.log('Fetched shelves.value:', shelves.value);
+                })
+                .catch((error) => {
+                    console.error('Failed to fetch shelves:', error);
+                })
+                .finally((sh) => {
+                    console.log('Fetch shelves completed');
+                });
+        } catch (error) {
+            console.error('Failed to fetch shelves:', error);
+        }
+    } else {
+        shelves.value = []; // Clear shelves if no warehouse selected
+    }
+});
 </script>
 
 <template>
     <div class="left-nav">
         <nav>
-            <select>
-                <option value="warehouse1">Склад 1</option>
-                <option value="warehouse2">Склад 2</option>
-                <option value="warehouse3">Склад 3</option>
+            <span>Склады</span>
+            <select v-model="selectedWarehouse">
+                <option v-if="isWarehousesLoading" value="0">Загрузка...</option>
+                <option v-else v-for="warehouse in warehouses" :key="warehouse.id" :value="warehouse.id">
+                    {{ warehouse.name }}
+                </option>
             </select>
             <ul>
-                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
-                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
-                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
-                <li><RouterLink to="/shelf"><button>Полка #0F6A</button></RouterLink></li>
+                <li v-if="selectedWarehouse === '0'" class="emt-wh">выберите склад для просмотра полок</li>
+                <li v-else-if="isShelvesLoading">загрузка полок...</li>
+                <li v-else-if="shelves.length === 0">нет доступных полок</li>
+                <li v-else v-for="shelf in shelves" :key="shelf.id">
+                    <RouterLink :to="`/shelf/${shelf.id}`">
+                        <button>Полка {{ shelf.name }}</button>
+                    </RouterLink>
+                </li>
             </ul>
         </nav>
     </div>
@@ -45,6 +108,10 @@ import { RouterLink, RouterView } from 'vue-router'
     margin: 5px;
 }
 
+.left-nav .emt-wh {
+    text-align: center;
+}
+
 .left-nav button {
     padding: 5px;
     text-decoration: none;
@@ -54,6 +121,7 @@ import { RouterLink, RouterView } from 'vue-router'
     border: 3px solid var(--color-background-darker);
     border-radius: 16px;
     color: var(--color-text);
+    text-align: left;
 }
 
 .left-nav button:hover {
@@ -75,7 +143,7 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 
 .left-nav select:focus {
-    outline:none!important;
+    outline: none !important;
 }
 
 .left-nav select:hover,
@@ -84,6 +152,14 @@ import { RouterLink, RouterView } from 'vue-router'
     border-color: var(--color-accent-blue);
     background-color: var(--color-background-lighter);
     cursor: pointer;
+}
+
+.left-nav nav span {
+    font-weight: bold;
+    /* center */
+    display: block;
+    text-align: center;
+    margin: 0 0 10px 0;
 }
 
 @media (max-width:961px) {

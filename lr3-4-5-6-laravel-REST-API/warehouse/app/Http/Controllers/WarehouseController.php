@@ -26,7 +26,7 @@ class WarehouseController extends Controller
             ->get();
     }
 
-    public function get_items($id)
+    public function get_shelves($id)
     {
         try {
             $wh = Warehouse::find($id);

@@ -1,6 +1,50 @@
 <script setup>
+import { watch } from 'vue';
+import axios from 'axios';
+
 // accept args: image path, product name, product description, expiration date, quantity
-const props = defineProps(['image', 'name', 'desc', 'date', 'quantity']);
+const props = defineProps(['id', 'image', 'name', 'desc', 'date', 'quantity']);
+const emit = defineEmits(['update:name', 'update:desc', 'update:date', 'update:quantity', 'delete']);
+
+// Watch handlers for all fields
+watch(() => props.name, (newVal) => {
+    if (props.id) {
+        axios.patch(`item/${props.id}/`, { name: newVal })
+            .then(response => console.log('Name updated:', response.data))
+            .catch(error => console.error('API Error:', error));
+    }
+});
+
+watch(() => props.desc, (newVal) => {
+    if (props.id) {
+        axios.patch(`item/${props.id}/`, { description: newVal })
+            .then(response => console.log('Description updated:', response.data))
+            .catch(error => console.error('API Error:', error));
+    }
+});
+
+watch(() => props.date, (newVal) => {
+    if (props.id) {
+        axios.patch(`item/${props.id}/`, { date: newVal })
+            .then(response => console.log('Date updated:', response.data))
+            .catch(error => console.error('API Error:', error));
+    }
+});
+
+watch(() => props.quantity, (newVal) => {
+    if (props.id) {
+        if (newVal <= 0) {
+            axios.delete(`item/${props.id}/`)
+                .then(response => console.log('Item deleted:', response.data))
+                .catch(error => console.error('API Error:', error))
+                .finally(() => emit('delete'));
+        } else {
+            axios.patch(`item/${props.id}/`, { count: newVal })
+                .then(response => console.log('Quantity updated:', response.data))
+                .catch(error => console.error('API Error:', error));
+        }
+    }
+});
 
 </script>
 
@@ -8,13 +52,15 @@ const props = defineProps(['image', 'name', 'desc', 'date', 'quantity']);
     <div class="product-card">
         <img :src="props.image" alt="product">
         <div>
-            <input class="name" type="text" :value="props.name">
-            <input class="desc" type="text" :value="props.desc">
-            <input class="date" type="date" name="dateInput" :value="props.date">
+            <input class="name" type="text" :value="props.name" @input="emit('update:name', $event.target.value)">
+            <input class="desc" type="text" :value="props.desc" @input="emit('update:desc', $event.target.value)">
+            <input class="date" type="date" name="dateInput" :value="props.date"
+                @input="emit('update:date', $event.target.value)">
             <div class="product-card-buttons">
-                <button>-</button>
-                <input type="number" :value="props.quantity">
-                <button>+</button>
+                <button @click="emit('update:quantity', props.quantity - 1)">-</button>
+                <input type="number" :value="props.quantity"
+                    @input="emit('update:quantity', parseInt($event.target.value))">
+                <button @click="emit('update:quantity', props.quantity + 1)">+</button>
             </div>
         </div>
     </div>

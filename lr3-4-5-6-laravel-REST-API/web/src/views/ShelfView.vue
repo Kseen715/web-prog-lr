@@ -88,6 +88,12 @@ const postNewProduct = async () => {
       fetchProducts(route.params.id);
     });
 }
+
+const updateProduct = (index, field, value) => {
+  if (products.value[index]) {
+    products.value[index][field] = value;
+  }
+}
 </script>
 
 <template>
@@ -100,9 +106,10 @@ const postNewProduct = async () => {
         <img src="/loading.svg" alt="loading" />
       </div>
       <div v-else class="shelf-viewport">
-        <ProductCardComp v-for="(product, index) in products" :key="index" :image="product.image_url"
-          :name="product.name" :desc="product.description" :date="product.date" :quantity="product.count" />
-        <NewCardComp @click="postNewProduct"/>
+        <ProductCardComp v-for="(product, index) in products" :key="product.id" :id="product.id"
+          :image="product.image_url" v-model:name="product.name" v-model:desc="product.description"
+          v-model:date="product.date" v-model:quantity="product.count" @delete="fetchProducts(route.params.id)" />
+        <NewCardComp @click="postNewProduct" />
       </div>
     </div>
   </main>
@@ -134,21 +141,20 @@ const postNewProduct = async () => {
 }
 
 .empty-viewport {
-    border-radius: 16px;
-    flex-grow: 1;
-    padding: 20px;
-    margin: 0 10px;
-    background-color: var(--color-background-op);
-    color: var(--color-text);
-    min-height: calc(60vh - 66px);
-    display: flex;
-    font-size: x-large;
-    align-items: center;
-    justify-content: center;
+  border-radius: 16px;
+  flex-grow: 1;
+  padding: 20px;
+  margin: 0 10px;
+  background-color: var(--color-background-op);
+  color: var(--color-text);
+  min-height: calc(60vh - 66px);
+  display: flex;
+  font-size: x-large;
+  align-items: center;
+  justify-content: center;
 }
 
 .empty-viewport h2 {
-    text-align: center;
+  text-align: center;
 }
-
 </style>

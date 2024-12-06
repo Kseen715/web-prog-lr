@@ -34,4 +34,31 @@ class ItemController extends Controller
             'id' => $item->id,
         ]);
     }
+
+    public function update(Request $request, $id)
+    {
+        $item = Item::findOrFail($id);
+        $item->update($request->all());
+        return response()->json([
+            'id' => $item->id,
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $item = Item::findOrFail($id);
+        $item->delete();
+        return response()->json([
+            'id' => $item->id,
+        ]);
+    }
+
+    public function patch(Request $request, $id)
+    {
+        $item = Item::findOrFail($id);
+        $item->update($request->all());
+        return response()->json([
+            'id' => $item->id,
+        ]);
+    }
 }

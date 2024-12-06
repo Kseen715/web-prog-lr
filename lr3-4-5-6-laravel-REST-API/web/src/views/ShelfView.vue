@@ -34,7 +34,7 @@ const fetchProducts = async (shelfId, isFancy) => {
       });
     });
   if (isFancy) {
-  isInfoLoading.value = true;
+    isInfoLoading.value = true;
   }
   axios.get('shelf/' + shelfId + '/')
     .then((response) => {
@@ -59,10 +59,10 @@ const fetchProducts = async (shelfId, isFancy) => {
     });
 }
 
-console.log(route)
-
 // Initial fetch
-fetchProducts(route.params.id, true);
+if (route.fullPath !== '/') {
+  fetchProducts(route.params.id, true);
+}
 
 // Watch for route changes
 watch(
@@ -105,9 +105,9 @@ const updateProduct = (index, field, value) => {
 <template>
   <main>
     <LeftNavComp />
-    <div v-if="route.fullPath=='/'" class="empty-viewport">
-            <h2>выберите полку</h2>
-        </div>
+    <div v-if="route.fullPath == '/'" class="empty-viewport">
+      <h2>выберите полку</h2>
+    </div>
     <div v-else class="viewp">
       <ShelfStatusComp v-if="isInfoLoading" :warehouse="'Загрузка'" :shelf="'...'" />
       <ShelfStatusComp v-else :warehouse="warehouse.name" :shelf="shelf.name" />
@@ -117,7 +117,8 @@ const updateProduct = (index, field, value) => {
       <div v-else class="shelf-viewport">
         <ProductCardComp v-for="(product, index) in products" :key="product.id" :id="product.id"
           :image="product.image_url" v-model:name="product.name" v-model:desc="product.description"
-          v-model:date="product.date" v-model:quantity="product.count" @update="fetchProducts(route.params.id, false)" />
+          v-model:date="product.date" v-model:quantity="product.count"
+          @update="fetchProducts(route.params.id, false)" />
         <NewCardComp @click="postNewProduct" />
       </div>
     </div>

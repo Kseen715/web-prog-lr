@@ -1,5 +1,6 @@
 <script setup>
 import LeftNavComp from '@/components/LeftNavComp.vue'
+import NewCardComp from '@/components/NewCardComp.vue';
 import ProductCardComp from '@/components/ProductCardComp.vue'
 import axios from 'axios';
 import { ref, watch } from 'vue';
@@ -51,10 +52,9 @@ watch(
       <h2>нет предметов на этой полке</h2>
     </div>
     <div v-else class="shelf-viewport">
-      <ProductCardComp v-if="isLoading" :key="0" :image="'/loading.svg'" :name="'загрузка...'" :desc="'загрузка...'"
-        :date="null" :quantity="null" />
-      <ProductCardComp v-else v-for="(product, index) in products" :key="index" :image="product.image_url"
+      <ProductCardComp v-for="(product, index) in products" :key="index" :image="product.image_url"
         :name="product.name" :desc="product.description" :date="product.date" :quantity="product.count" />
+      <NewCardComp />
     </div>
   </main>
 </template>

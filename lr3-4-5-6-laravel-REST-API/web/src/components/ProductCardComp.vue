@@ -23,7 +23,9 @@ watch(() => props.desc, (newVal) => {
     }
 });
 
-watch(() => props.date, (newVal) => {
+watch(() => props.date, (oldVal, newVal) => {
+    // if diff is less than 1 day, don't update
+    if (Math.abs(new Date(oldVal) - new Date(newVal)) < 86400000) return;
     if (props.id) {
         axios.patch(`item/${props.id}/`, { date: newVal })
             .then(response => console.log('Date updated:', response.data))

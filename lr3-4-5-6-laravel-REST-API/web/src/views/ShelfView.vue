@@ -15,8 +15,10 @@ const isInfoLoading = ref(true);
 const shelf = ref({});
 const warehouse = ref({});
 
-const fetchProducts = async (shelfId) => {
-  isProductsLoading.value = true;
+const fetchProducts = async (shelfId, isFancy) => {
+  if (isFancy) {
+    isProductsLoading.value = true;
+  }
   axios.get('shelf/' + shelfId + '/items/')
     .then((response) => {
       products.value = response.data.data;
@@ -31,7 +33,9 @@ const fetchProducts = async (shelfId) => {
         product.date = product.date.split('T')[0];
       });
     });
+  if (isFancy) {
   isInfoLoading.value = true;
+  }
   axios.get('shelf/' + shelfId + '/')
     .then((response) => {
       shelf.value = response.data;
@@ -56,14 +60,14 @@ const fetchProducts = async (shelfId) => {
 }
 
 // Initial fetch
-fetchProducts(route.params.id);
+fetchProducts(route.params.id, true);
 
 // Watch for route changes
 watch(
   () => route.params.id,
   (newId) => {
     if (newId) {
-      fetchProducts(newId);
+      fetchProducts(newId, true);
     }
   }
 );
@@ -85,7 +89,7 @@ const postNewProduct = async () => {
       console.error('API Error:', error);
     })
     .finally(() => {
-      fetchProducts(route.params.id);
+      fetchProducts(route.params.id, false);
     });
 }
 
@@ -108,7 +112,7 @@ const updateProduct = (index, field, value) => {
       <div v-else class="shelf-viewport">
         <ProductCardComp v-for="(product, index) in products" :key="product.id" :id="product.id"
           :image="product.image_url" v-model:name="product.name" v-model:desc="product.description"
-          v-model:date="product.date" v-model:quantity="product.count" @delete="fetchProducts(route.params.id)" />
+          v-model:date="product.date" v-model:quantity="product.count" @delete="fetchProducts(route.params.id, false)" />
         <NewCardComp @click="postNewProduct" />
       </div>
     </div>

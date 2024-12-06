@@ -67,6 +67,27 @@ watch(
     }
   }
 );
+
+
+const postNewProduct = async () => {
+  axios.post('item/', {
+    name: 'Новый объект',
+    description: 'Описание объекта',
+    image_url: '/jar.svg',
+    count: 1,
+    date: new Date().toISOString().split('T')[0],
+    shelf_id: route.params.id,
+  })
+    .then((response) => {
+      products.value.push(response.data);
+    })
+    .catch((error) => {
+      console.error('API Error:', error);
+    })
+    .finally(() => {
+      fetchProducts(route.params.id);
+    });
+}
 </script>
 
 <template>
@@ -81,7 +102,7 @@ watch(
       <div v-else class="shelf-viewport">
         <ProductCardComp v-for="(product, index) in products" :key="index" :image="product.image_url"
           :name="product.name" :desc="product.description" :date="product.date" :quantity="product.count" />
-        <NewCardComp />
+        <NewCardComp @click="postNewProduct"/>
       </div>
     </div>
   </main>

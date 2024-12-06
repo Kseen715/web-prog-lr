@@ -2,12 +2,20 @@
 // accept args: image path, product name, product description, expiration date, quantity
 const props = defineProps(['image', 'name', 'desc', 'date', 'quantity']);
 
+const emit = defineEmits(['click'])
+
+// when button is clicked, emit event to parent
+const emitClick = () => {
+    emit('click');
+}
+
 </script>
 
 <template>
     <div class="plus-card">
-        <button><img src="/plus-circle.svg" 
-             alt="product"></button>
+        <button @click="emitClick">
+            <img src="/plus-circle.svg" alt="product">
+        </button>
     </div>
 </template>
 
@@ -45,7 +53,7 @@ const props = defineProps(['image', 'name', 'desc', 'date', 'quantity']);
 .plus-card button:hover img {
     transform: scale(1.1);
     transition: all 0.3s;
-}   
+}
 
 .plus-card img {
     width: 50%;

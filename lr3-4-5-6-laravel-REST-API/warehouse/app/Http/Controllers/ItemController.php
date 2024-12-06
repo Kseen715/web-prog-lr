@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
@@ -24,5 +25,13 @@ class ItemController extends Controller
             ->limit(5)
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+
+    public function store(Request $request)
+    {
+        $item = Item::create($request->all());
+        return response()->json([
+            'id' => $item->id,
+        ]);
     }
 }

@@ -34,6 +34,8 @@ services:
     build: ./web
     networks:
       - gateway
+    environment:
+      - VITE_API_URL=http://127.0.0.1:9000/api/v1
     ports:
       - "${NODEJS_PORT}:3000"
     restart: always
@@ -53,6 +55,8 @@ services:
       - "${LARAVEL_PORT}:9000"
     env_file:
       - ./warehouse/.env
+    environment:
+      - DB_HOST=mysql
     restart: always
 
 

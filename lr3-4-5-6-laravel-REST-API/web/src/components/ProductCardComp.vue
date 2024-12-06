@@ -23,7 +23,7 @@ watch(() => props.desc, (newVal) => {
     }
 });
 
-watch(() => props.date, (oldVal, newVal) => {
+watch(() => props.date, (newVal, oldVal) => {
     // if diff is less than 1 day, don't update
     if (Math.abs(new Date(oldVal) - new Date(newVal)) < 86400000) return;
     if (props.id) {

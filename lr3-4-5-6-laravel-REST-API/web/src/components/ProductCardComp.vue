@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // accept args: image path, product name, product description, expiration date, quantity
 const props = defineProps(['id', 'image', 'name', 'desc', 'date', 'quantity']);
-const emit = defineEmits(['update:name', 'update:desc', 'update:date', 'update:quantity', 'delete']);
+const emit = defineEmits(['update:name', 'update:desc', 'update:date', 'update:quantity', 'update']);
 
 // Watch handlers for all fields
 watch(() => props.name, (newVal) => {
@@ -39,7 +39,7 @@ watch(() => props.quantity, (newVal) => {
             axios.delete(`item/${props.id}/`)
                 .then(response => console.log('Item deleted:', response.data))
                 .catch(error => console.error('API Error:', error))
-                .finally(() => emit('delete'));
+                .finally(() => emit('update'));
         } else {
             axios.patch(`item/${props.id}/`, { count: newVal })
                 .then(response => console.log('Quantity updated:', response.data))
@@ -48,17 +48,34 @@ watch(() => props.quantity, (newVal) => {
     }
 });
 
+// on click of edit button, ask new url in popup
+const editImage = () => {
+    const newUrl = prompt('Введите новый URL изображения:', props.image);
+    if (newUrl) {
+        axios.patch(`item/${props.id}/`, { image_url: newUrl })
+            .then(response => console.log('Image updated:', response.data))
+            .catch(error => console.error('API Error:', error))
+            .finally(() => emit('update'));
+    }
+}
+
 </script>
 
 <template>
     <div class="product-card">
-        <img :src="props.image" alt="product">
+        <div class="image-wrapper">
+            <img :src="props.image" alt="product">
+            <button class="edit-btn" @click="editImage">
+                <img :src="'/edit-picture.svg'" alt="edit">
+            </button>
+        </div>
+        <!-- <img :src="props.image" alt="product"> -->
         <div>
             <input class="name" type="text" :value="props.name" @input="emit('update:name', $event.target.value)">
             <input class="desc" type="text" :value="props.desc" @input="emit('update:desc', $event.target.value)">
             <input class="date" type="date" name="dateInput" :value="props.date"
                 @input="emit('update:date', $event.target.value)">
-            <div class="product-card-buttons">
+            <div class="product-card-bottom">
                 <button @click="emit('update:quantity', props.quantity - 1)">-</button>
                 <input type="number" :value="props.quantity"
                     @input="emit('update:quantity', parseInt($event.target.value))">
@@ -88,8 +105,8 @@ watch(() => props.quantity, (newVal) => {
 
 .product-card img {
     width: 100%;
-    height: 50%;
-    min-height: 50%;
+    height: 100%;
+    min-height: 100%;
     min-width: 100%;
     object-fit: cover;
     border-radius: 5px;
@@ -112,14 +129,14 @@ watch(() => props.quantity, (newVal) => {
     white-space: nowrap;
 }
 
-.product-card-buttons {
+.product-card-bottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin: 4px 0;
 }
 
-.product-card-buttons button {
+.product-card-bottom button {
     padding: 5px;
     text-decoration: none;
     display: block;
@@ -131,7 +148,7 @@ watch(() => props.quantity, (newVal) => {
     color: var(--white);
 }
 
-.product-card-buttons button:hover {
+.product-card-bottom button:hover {
     color: var(--color-accent-blue);
     /* background-color: var(--color-background-lighter); */
     /* border: 3px solid var(--color-accent-blue); */
@@ -146,11 +163,12 @@ input[type=number]::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
     /* Firefox */
     margin: 4px;
 }
 
-.product-card-buttons input {
+.product-card-bottom input {
     padding: 5px;
     text-decoration: none;
     display: block;
@@ -160,6 +178,50 @@ input[type=number] {
     border-radius: 8px;
     color: var(--white);
     margin: 0 4px;
+}
+
+.image-wrapper {
+    width: 100%;
+    width: 100%;
+    height: 50%;
+    min-height: 50%;
+    min-width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.edit-btn {
+    position: relative;
+    object-fit: none;
+    /* top: 10px; */
+    /* right: 10px; */
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    background-color: var(--color-background-lighter);
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* move btn up right */
+    transform: translate(185px, -38px);
+}
+
+.edit-btn img {
+    width: 15px;
+    height: 15px;
+}
+
+.edit-btn:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
 }
 
 .name,

@@ -112,7 +112,7 @@ const updateProduct = (index, field, value) => {
       <div v-else class="shelf-viewport">
         <ProductCardComp v-for="(product, index) in products" :key="product.id" :id="product.id"
           :image="product.image_url" v-model:name="product.name" v-model:desc="product.description"
-          v-model:date="product.date" v-model:quantity="product.count" @delete="fetchProducts(route.params.id, false)" />
+          v-model:date="product.date" v-model:quantity="product.count" @update="fetchProducts(route.params.id, false)" />
         <NewCardComp @click="postNewProduct" />
       </div>
     </div>

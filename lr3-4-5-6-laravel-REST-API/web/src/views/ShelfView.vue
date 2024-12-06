@@ -59,6 +59,8 @@ const fetchProducts = async (shelfId, isFancy) => {
     });
 }
 
+console.log(route)
+
 // Initial fetch
 fetchProducts(route.params.id, true);
 
@@ -103,7 +105,10 @@ const updateProduct = (index, field, value) => {
 <template>
   <main>
     <LeftNavComp />
-    <div class="viewp">
+    <div v-if="route.fullPath=='/'" class="empty-viewport">
+            <h2>выберите полку</h2>
+        </div>
+    <div v-else class="viewp">
       <ShelfStatusComp v-if="isInfoLoading" :warehouse="'Загрузка'" :shelf="'...'" />
       <ShelfStatusComp v-else :warehouse="warehouse.name" :shelf="shelf.name" />
       <div v-if="isProductsLoading" class="empty-viewport">

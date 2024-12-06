@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Item;
+use App\Models\Shelf; 
 use Faker\Factory as Faker;
 
 const IMAGE_URLS = [
@@ -45,17 +46,25 @@ class ItemSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 500; $i++) {
+        // Get total number of shelves from database
+        $shelfCount = Shelf::count();
+
+        // Ensure we have at least one shelf
+        if ($shelfCount === 0) {
+            throw new \Exception('No shelves found. Please run shelf seeder first.');
+        }
+
+        // get the number of shelves
+
+        for ($i = 0; $i < 1000; $i++) {
             Item::create([
                 'name' => ucfirst($faker->word . ' ' . $faker->word),
-                'shelf_id' => $faker->numberBetween(1, 50),
+                'shelf_id' => $faker->numberBetween(1, $shelfCount),
                 'image_url' => IMAGE_URLS[$faker->numberBetween(0,count(IMAGE_URLS)-1)],
                 'description' => ucfirst($faker->paragraph),
-                'date' => $faker->dateTimeBetween('-1 year', 'now'),
+                'date' => $faker->dateTimeBetween('-5 year', 'now'),
                 'count' => $faker->numberBetween(1, 100),
             ]);
         }
     }
 }
-
-https://random.imagecdn.app/v1/image?width=800&height=600&category=food&format=png&provider=LoremFlickr

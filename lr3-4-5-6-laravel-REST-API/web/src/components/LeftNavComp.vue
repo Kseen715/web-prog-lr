@@ -40,16 +40,11 @@ watch(selectedWarehouse, async (newWarehouseId) => {
         try {
             fetchShelvesByWarehouse(newWarehouseId)
                 .then((sh) => {
-                    console.log('Fetched shelves:', sh);
                     shelves.value = sh;
-                    console.log('Fetched shelves.value:', shelves.value);
                 })
                 .catch((error) => {
                     console.error('Failed to fetch shelves:', error);
                 })
-                .finally((sh) => {
-                    console.log('Fetch shelves completed');
-                });
         } catch (error) {
             console.error('Failed to fetch shelves:', error);
         }

@@ -1,30 +1,57 @@
 <script setup>
 import LeftNavComp from '@/components/LeftNavComp.vue'
-import NewCardComp from '@/components/NewCardComp.vue';
+import NewCardComp from '@/components/NewProductCardComp.vue';
 import ProductCardComp from '@/components/ProductCardComp.vue'
+import ShelfStatusComp from '@/components/ShelfStatusComp.vue';
 import axios from 'axios';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const products = ref([]);
-const isLoading = ref(true);
+const isProductsLoading = ref(true);
+const isInfoLoading = ref(true);
+
+const shelf = ref({});
+const warehouse = ref({});
 
 const fetchProducts = async (shelfId) => {
-  isLoading.value = true;
+  isProductsLoading.value = true;
   axios.get('shelf/' + shelfId + '/items/')
     .then((response) => {
       products.value = response.data.data;
     })
     .catch((error) => {
-      // console.error('API Error:', error);
+      console.error('API Error:', error);
       products.value = [];
     })
     .finally(() => {
-      isLoading.value = false;
+      isProductsLoading.value = false;
       products.value.forEach((product) => {
         product.date = product.date.split('T')[0];
       });
+    });
+  isInfoLoading.value = true;
+  axios.get('shelf/' + shelfId + '/')
+    .then((response) => {
+      shelf.value = response.data;
+    })
+    .catch((error) => {
+      console.error('API Error:', error);
+      shelf.value = {};
+    })
+    .finally(() => {
+      axios.get('warehouse/' + shelf.value.warehouse_id + '/')
+        .then((response) => {
+          warehouse.value = response.data;
+        })
+        .catch((error) => {
+          console.error('API Error:', error);
+          warehouse.value = {};
+        })
+        .finally(() => {
+          isInfoLoading.value = false;
+        });
     });
 }
 
@@ -45,21 +72,28 @@ watch(
 <template>
   <main>
     <LeftNavComp />
-    <div v-if="isLoading" class="empty-viewport">
-      <img src="/loading.svg" alt="loading" />
-    </div>
-    <div v-else-if="products.length < 1" class="empty-viewport">
-      <h2>нет предметов на этой полке</h2>
-    </div>
-    <div v-else class="shelf-viewport">
-      <ProductCardComp v-for="(product, index) in products" :key="index" :image="product.image_url"
-        :name="product.name" :desc="product.description" :date="product.date" :quantity="product.count" />
-      <NewCardComp />
+    <div class="viewp">
+      <ShelfStatusComp v-if="isInfoLoading" :warehouse="'Загрузка'" :shelf="'...'" />
+      <ShelfStatusComp v-else :warehouse="warehouse.name" :shelf="shelf.name" />
+      <div v-if="isProductsLoading" class="empty-viewport">
+        <img src="/loading.svg" alt="loading" />
+      </div>
+      <div v-else class="shelf-viewport">
+        <ProductCardComp v-for="(product, index) in products" :key="index" :image="product.image_url"
+          :name="product.name" :desc="product.description" :date="product.date" :quantity="product.count" />
+        <NewCardComp />
+      </div>
     </div>
   </main>
 </template>
 
 <style>
+.viewp {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .shelf-viewport {
   border-radius: 16px;
   flex-grow: 1;
@@ -74,7 +108,7 @@ watch(
   align-items: start;
   justify-content: start;
   list-style-type: none;
-  min-height: 60vh;
+  min-height: calc(60vh - 66px);
   max-height: fit-content;
 }
 
@@ -85,7 +119,7 @@ watch(
     margin: 0 10px;
     background-color: var(--color-background-op);
     color: var(--color-text);
-    min-height: 60vh;
+    min-height: calc(60vh - 66px);
     display: flex;
     font-size: x-large;
     align-items: center;

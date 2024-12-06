@@ -17,6 +17,7 @@ const props = defineProps(['image', 'name', 'desc', 'date', 'quantity']);
     /* border: 0px solid var(--color-background-darker); */
     border-radius: 8px;
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+    border: 5px solid var(--color-background-darker);
     padding: 10px;
     box-sizing: border-box;
     /* width: 200px; */

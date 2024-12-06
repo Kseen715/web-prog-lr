@@ -1,5 +1,6 @@
 <script setup>
 import LeftNavComp from '@/components/LeftNavComp.vue'
+import ShelfStatusComp from '@/components/ShelfStatusComp.vue';
 </script>
 
 <template>

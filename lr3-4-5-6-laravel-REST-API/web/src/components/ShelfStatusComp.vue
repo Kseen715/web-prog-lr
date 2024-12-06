@@ -24,12 +24,7 @@ const props = defineProps(['warehouse', 'shelf']);
 
 .line span {
     margin: 0 10px 0 0;
-    font-size: large;
-}
-
-.line b {
     font-size: x-large;
-    font-weight: bold;
 }
 
 .delim {

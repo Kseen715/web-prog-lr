@@ -108,7 +108,7 @@ watch(selectedWarehouse, async (newWarehouseId) => {
 }
 
 .left-nav button {
-    padding: 5px;
+    padding: 7px 10px 7px 10px; /* t r b l */
     text-decoration: none;
     display: block;
     width: 100%;
